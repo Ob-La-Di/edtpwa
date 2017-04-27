@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">   
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
 <dom-module id="testpwa-app">
@@ -10,11 +11,12 @@
       }
     </style>
 
-  <paper-toolbar>
-    <span class="title">Emploi du temps</span>
-    <paper-icon-button icon="refresh"></paper-icon-button>
-  </paper-toolbar>
+    <paper-toolbar>
+      <span class="title">Emploi du temps</span>
+      <paper-icon-button icon="refresh" on-tap="refresh"></paper-icon-button>
+    </paper-toolbar>
   </template>
+
   <script>
     Polymer({
 
@@ -26,6 +28,10 @@
           value: 'azaza',
         },
       },
+
+	  refresh: function(){
+		  console.log(arguments);
+	  }
 
     });
   </script>
