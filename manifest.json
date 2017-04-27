@@ -1,0 +1,6 @@
+{
+  "name": "testpwa",
+  "short_name": "testpwa",
+  "start_url": "/",
+  "display": "standalone"
+}

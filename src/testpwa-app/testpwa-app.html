@@ -1,0 +1,32 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<dom-module id="testpwa-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+  <paper-toolbar>
+    <span class="title">Emploi du temps</span>
+    <paper-icon-button icon="refresh"></paper-icon-button>
+  </paper-toolbar>
+  </template>
+  <script>
+    Polymer({
+
+      is: 'testpwa-app',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'azaza',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
