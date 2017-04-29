@@ -2,7 +2,7 @@
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">   
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <dom-module id="testpwa-app">
   <template>
     <style>
@@ -15,6 +15,12 @@
       <span class="title">Emploi du temps</span>
       <paper-icon-button icon="refresh" on-tap="refresh"></paper-icon-button>
     </paper-toolbar>
+
+    <iron-ajax auto
+                  url="[[ url ]]"
+                  handle-as="xml"
+                  on-response="_on_response"
+                  last-response="{{agencies}}"></iron-ajax>
   </template>
 
   <script>
@@ -23,16 +29,14 @@
       is: 'testpwa-app',
 
       properties: {
-        prop1: {
+        url: {
           type: String,
-          value: 'azaza',
-        },
+          value: '/edt'
+        }
       },
-
-	  refresh: function(){
-		  console.log(arguments);
-	  }
-
+      _on_response: function() {
+		  
+      }
     });
   </script>
 </dom-module>
