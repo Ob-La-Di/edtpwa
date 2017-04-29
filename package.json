@@ -1,0 +1,28 @@
+{
+  "name": "testpwa",
+  "version": "1.0.0",
+  "description": "First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ob-La-Di/testpwa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ob-La-Di/testpwa/issues"
+  },
+  "homepage": "https://github.com/Ob-La-Di/testpwa",
+  "dependencies": {
+    "express": "^4.15.2",
+    "request": "^2.81.0",
+    "xml-parser": "^1.2.1"
+  }
+}
