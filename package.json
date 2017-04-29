@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Ob-La-Di/testpwa",
   "dependencies": {
     "express": "^4.15.2",
+    "heroku-ssl-redirect": "0.0.3",
     "moment": "^2.18.1",
     "request": "^2.81.0",
     "striptags": "^3.0.1",

@@ -5,6 +5,9 @@ var request = require('request');
 var striptags = require('striptags');
 var parseString = require('xml2js').parseString;
 var moment = require('moment');
+var sslRedirect = require('heroku-ssl-redirect');
+
+app.use(sslRedirect());
 app.use(express.static(path.join(__dirname,'/')));
 
 // app.get('/', function(req, res){
@@ -34,19 +37,6 @@ var cleanXML = function(items) {
 
     }
 }
-var https_redirect = function(req, res, next) {
-    if (process.env.NODE_ENV === 'prod') {
-        if (req.headers['x-forwarded-proto'] != 'https') {
-            return res.redirect('https://' + req.headers.host + req.url);
-        } else {
-            return next();
-        }
-    } else {
-        return next();
-    }
-};
-
-app.use(https_redirect);
 
 app.get('/edt', function(req,res,next){
     request('http://adelb.univ-lyon1.fr/direct/gwtdirectplanning/rss?projectId=3&resources=9767,33140,33141,33142,33143,33144,36476,36477,36478&cliendId=1493454139688&nbDays=15&since=0', function(err, result) {
