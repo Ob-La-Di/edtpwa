@@ -15,12 +15,10 @@
       <span class="title">Emploi du temps</span>
       <paper-icon-button icon="refresh" on-tap="refresh"></paper-icon-button>
     </paper-toolbar>
-
-    <iron-ajax auto
-                  url="[[ url ]]"
-                  handle-as="xml"
-                  on-response="_on_response"
-                  last-response="{{agencies}}"></iron-ajax>
+	<iron-ajax auto
+		url=' [[ url ]]'
+		on-response="_on_response"
+		last-response="{{agencies}}"></iron-ajax>
   </template>
 
   <script>
@@ -34,8 +32,8 @@
           value: '/edt'
         }
       },
-      _on_response: function() {
-		  
+      _on_response: function(response) {
+		console.log(arguments);
       }
     });
   </script>
