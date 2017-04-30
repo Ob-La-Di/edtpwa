@@ -6,6 +6,8 @@ var striptags = require('striptags');
 var parseString = require('xml2js').parseString;
 var moment = require('moment');
 var sslRedirect = require('heroku-ssl-redirect');
+var Promise = require('bluebird');
+var _ = require('lodash');
 
 app.use(sslRedirect());
 app.use(express.static(path.join(__dirname,'/')));
@@ -19,23 +21,45 @@ app.use(express.static(path.join(__dirname,'/')));
 // });
 
 var cleanXML = function(items) {
-    for(var i in items){
-        var removedTags = striptags(items[i].description[0]),
-        year = removedTags.substr(6,4),
-        month = removedTags.substr(3,2),
-        day = removedTags.substr(0,2),
-        spaceIndex = items[i].description[0].indexOf(' '),
-        tagIndex = items[i].description[0].indexOf('</p>'),
+    return new Promise(function(resolve, reject) {
 
+        var edt = {};
 
-        date = moment(year+'-'+month+'-'+day),
-        period = items[i].description[0].substr(spaceIndex+1, tagIndex - spaceIndex),
-        begin = period.substr(0,5),
-        end = period.substr(8,5);
-        
-        console.log(date, begin, end, items[i].description[0]);
+        for(var i in items){
+            var removedTags = striptags(items[i].description[0]),
+            spaceIndex = items[i].description[0].indexOf(' '),
+            tagIndex = items[i].description[0].indexOf('</p>'),
 
-    }
+            date = moment(removedTags.substr(0,10), 'DD/MM/YYYY');
+            period = items[i].description[0].substr(spaceIndex+1, tagIndex - spaceIndex-1),
+            begin = moment.utc(removedTags.substr(0,10)+' '+period.substr(0,5).replace('h', ':'), 'DD/MM/YYYY HH:mm'),
+            end = moment.utc(removedTags.substr(0,10)+' '+period.substr(8,5).replace('h', ':'), 'DD/MM/YYYY HH:mm'),
+            description = items[i].description[0].substr(57).replace('M1 Informatique<br/>', '').replace(/<br ?\/>/gi, '\n').replace(items[i].title[0].replace(' TP', ''), '').replace('grA', '');
+
+            if(!edt[date.format('YYYY-MM-DD')]){
+                edt[date.format('YYYY-MM-DD')] = [];
+            }
+            edt[date.format('YYYY-MM-DD')].push({
+                title:  items[i].title[0],
+                description: description,
+                period: period,
+                begin: begin,
+                end: end
+            });
+        }
+
+        var realResult = [];
+        for(var i in edt){
+            edt[i] = _.sortBy(edt[i], function(o) { return o.begin});
+            realResult.push([i, edt[i]]);
+        }
+
+        realResult = _.sortBy(realResult, function(o){
+            return o[0];
+        });
+
+        return resolve(realResult);
+    });
 }
 
 app.get('/edt', function(req,res,next){
@@ -45,8 +69,12 @@ app.get('/edt', function(req,res,next){
             return res.status(500).send('An error occured');
         }
         parseString(xmlResult, function (err, result) {
-            cleanXML(result.rss.channel[0].item);
-            res.json(result.rss.channel[0].item);
+            cleanXML(result.rss.channel[0].item).then(function(edt) {
+                res.json(edt);
+            }).catch(function(err){
+                res.status(500).send(err);
+            });
+            // res.json(result.rss.channel[0].item);
         });
 
     });

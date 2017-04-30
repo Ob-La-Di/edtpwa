@@ -2,23 +2,56 @@
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">   
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
 <dom-module id="testpwa-app">
   <template>
     <style>
       :host {
         display: block;
       }
+	  paper-card {
+		  width: 100%;
+		  margin-top:10px;
+	  }
+	  .cafe-header { @apply(--paper-font-headline); }
+		.class{
+			padding: 5px;
+			margin-bottom: 10px;
+		}
     </style>
 
-    <paper-toolbar>
-      <span class="title">Emploi du temps</span>
-      <paper-icon-button icon="refresh" on-tap="refresh"></paper-icon-button>
+	<paper-toolbar>
+      	<span class="title">Emploi du temps</span>
+		<paper-icon-button icon="refresh" on-tap="refresh"></paper-icon-button>
+		<paper-progress indeterminate disabled="{{!Onprogress}}" class="middle fit blue"></paper-progress>
     </paper-toolbar>
-	<iron-ajax auto
-		url=' [[ url ]]'
-		on-response="_on_response"
-		last-response="{{agencies}}"></iron-ajax>
+
+	<template is="dom-repeat" items="{{classes}}">
+		<paper-card>
+			<div class="card-content">
+				<div class="cafe-header">{{ item.0 }}</div>
+				<template is="dom-repeat" items={{item.1}}>
+					<div class="class">
+						{{item.title}} <br>
+						{{item.begin}} - {{item.end}} <br>
+						{{item.description}}	<br>
+					</div>					
+				</template>
+			</div>
+		</paper-card>
+	</template>
+	<paper-toast text="Aucune connexion " id="noInternetToast" class="fit-bottom"></paper-toast>
+
+    <iron-ajax auto
+	  id="xhr"
+      url=' [[ url ]]'
+      on-response="_on_response"
+	  on-error="_on_error"
+	  last-response="{{classes}}"></iron-ajax>
   </template>
 
   <script>
@@ -27,14 +60,26 @@
       is: 'testpwa-app',
 
       properties: {
-        url: {
-          type: String,
-          value: '/edt'
-        }
+		url: {
+			type: String,
+			value: '/edt'
+		},
+		Onprogress: {
+			type: Boolean,
+			value: true
+		}
       },
+	  refresh: function(){
+		this.$.xhr.generateRequest();
+		this.set('Onprogress', true);
+	  },
       _on_response: function(response) {
-		console.log(arguments);
-      }
+		this.set('Onprogress', false);
+      },
+	  _on_error: function(){
+		this.set('Onprogress', false);
+		this.$.noInternetToast.open();
+	  },
     });
   </script>
 </dom-module>
