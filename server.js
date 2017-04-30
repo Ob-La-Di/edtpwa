@@ -10,7 +10,8 @@ var Promise = require('bluebird');
 var _ = require('lodash');
 
 app.use(sslRedirect());
-var build=(process.env.NOD_ENV === 'production') ?  '/build/default': '/' ;
+var build=(process.env.NODE_ENV === 'production') ?  '/build/default': '/' ;
+console.log(build);
 app.use(express.static(path.join(__dirname,build)));
 
 // app.get('/', function(req, res){
