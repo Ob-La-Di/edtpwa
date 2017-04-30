@@ -11,13 +11,6 @@
   ],
   "extraDependencies": [
     "bower_components/webcomponentsjs/webcomponents-lite.min.js",
-    "bower_components/polymer/polymer.html",
-    "bower_components/paper-toolbar/paper-toolbar.html",
-    "bower_components/iron-icons/iron-icons.html",
-    "bower_components/paper-icon-button/paper-icon-button.html",
-    "bower_components/paper-progress/paper-progress.html",
-    "bower_components/paper-card/paper-card.html",
-    "bower_components/paper-toast/paper-toast.html",
-    "bower_components/iron-ajax/iron-ajax.html"
+    "manifest.json"
   ]
 }
