@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "postinstall": "npm -g install bower; bower install; npm install -g polymer-cli; polymer build"
+    "postinstall": "npm -g install bower; bower install; npm install -g polymer-cli; polymer build --add-service-worker"
   },
   "repository": {
     "type": "git",
