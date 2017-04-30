@@ -10,7 +10,8 @@ var Promise = require('bluebird');
 var _ = require('lodash');
 
 app.use(sslRedirect());
-app.use(express.static(path.join(__dirname,'/')));
+var build=(process.env.NOD_ENV === 'production') ?  '/build/default': '/' ;
+app.use(express.static(path.join(__dirname,build)));
 
 // app.get('/', function(req, res){
 //     res.sendFile(__dirname + '/../index.html');
