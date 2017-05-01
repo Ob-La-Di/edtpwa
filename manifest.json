@@ -1,10 +1,10 @@
 {
-  "name": "testpwa",
-  "short_name": "testpwa",
+  "name": "Emploi du temps",
+  "short_name": "EDT",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "cornflowerblue",
-  "theme_color": "cornflowerblue",
+  "background_color": "white",
+  "theme_color": "white",
   "icons": [{
     "src": "images/homescreen192.png",
     "sizes": "192x192",
