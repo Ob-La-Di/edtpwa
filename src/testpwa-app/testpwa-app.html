@@ -70,15 +70,18 @@
 		}
       },
 	  refresh: function(){
-		this.$.xhr.generateRequest();
-		this.set('Onprogress', true);
+			this.$.xhr.generateRequest();
+			this.set('Onprogress', true);
+			if(!navigator.onLine){
+				this.$.noInternetToast.open();		
+			}
 	  },
       _on_response: function(response) {
 		this.set('Onprogress', false);
       },
 	  _on_error: function(){
-		this.set('Onprogress', false);
-		this.$.noInternetToast.open();
+			this.set('Onprogress', false);
+			this.$.noInternetToast.open();
 	  },
     });
   </script>
