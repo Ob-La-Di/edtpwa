@@ -9,7 +9,7 @@ module.exports = {
   runtimeCaching: [
     {
       urlPattern: '/edt',///^https:\/\/i\.ytimg\.com/,
-      handler: 'fastest',
+      handler: 'networkFirst',
       options: {
         cache: {
           maxEntries: 100,
