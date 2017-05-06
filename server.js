@@ -36,7 +36,7 @@ var cleanXML = function(items) {
             period = items[i].description[0].substr(spaceIndex+1, tagIndex - spaceIndex-1),
             begin = moment.utc(removedTags.substr(0,10)+' '+period.substr(0,5).replace('h', ':'), 'DD/MM/YYYY HH:mm'),
             end = moment.utc(removedTags.substr(0,10)+' '+period.substr(8,5).replace('h', ':'), 'DD/MM/YYYY HH:mm'),
-            description = items[i].description[0].substr(57).replace('M1 Informatique<br/>', '').replace(/<br ?\/>/gi, '\n').replace(items[i].title[0].replace(' TP', ''), '').replace('grA', '');
+            description = items[i].description[0].substr(57).replace('M1 Informatique', '').replace(/<br ?\/>/gi, '\n').replace(items[i].title[0].replace(' TP', ''), '').replace('grA', '');
 
             if(!edt[date.format('YYYY-MM-DD')]){
                 edt[date.format('YYYY-MM-DD')] = [];

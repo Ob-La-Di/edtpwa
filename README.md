@@ -1,5 +1,4 @@
-# \<testpwa\>
-
+# \<Time table progressive web app\>
 
 
 ## Install the Polymer-CLI
